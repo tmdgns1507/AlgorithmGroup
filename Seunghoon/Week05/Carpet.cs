@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AlgorithmStudy05
 {
-    // 2022-05-20 ~ 2022-06-25
+    // 2022-06-20 ~ 2022-06-25
     // Week05
-    // 없는 숫자 더하기
+    // 카페트
     // https://programmers.co.kr/learn/courses/30/lessons/42842
 
 

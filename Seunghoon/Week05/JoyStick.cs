@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace AlgorithmStudy05
 {
-    // 2022-05-20 ~ 2022-06-25
+    // 2022-06-20 ~ 2022-06-25
     // Week05
-    // 없는 숫자 더하기
+    // 조이스틱
     // https://programmers.co.kr/learn/courses/30/lessons/42860
-    // 테스트케이스 10~27 (15제외) 에러
 
     class JoyStick
     {
@@ -29,54 +28,33 @@ namespace AlgorithmStudy05
             }
         }
 
-        public int CalculateCharCount(string name)
+        public int GetKeyMovementCount(string name)
         {
             int count = 0;
+            int moveCount = name.Length-1;
 
-            foreach(char ch in name)
+            for (int i = 0; i<name.Length; i++)
             {
-                if (ch == 'A') continue;
-                count += charIndexDic[ch];
+                moveCount = GetKeyPassedCount(name, i, moveCount);                
+                if (name[i] == 'A') continue;
+                count += charIndexDic[name[i]];
             }
 
-            return count;
+            return count + moveCount;
         }
 
-        public int MoveLeftRightCount(string name)
-        {
-            int leftCount = 0;
-            int rightCount = 0;
-            
-            for(int i =1; i<name.Length; i++)
-            {
-                if(name[i] == 'A' && i == name.Length-1 )
-                {
-                    break;
-                }
-                rightCount++;
-            }
-
-            for (int i = name.Length-1; i >= 1; i--)
-            {
-                if (name[i] == 'A' && i == 1)
-                {
-                    break;
-                }
-                leftCount++;
-            }
-
-            return Math.Min(leftCount, rightCount);
+        public int GetKeyPassedCount(string name, int index, int moveCount)
+        {            
+            int nextIndex = index + 1;
+            while (nextIndex < name.Length && name[nextIndex] == 'A') nextIndex++;
+            moveCount = Math.Min(moveCount, index + name.Length - nextIndex + Math.Min(index, name.Length - nextIndex));
+            return moveCount;
         }
 
         public int solution(string name)
-        {
-            int answer = 0;
-            InitCharIndex();
-            answer += CalculateCharCount(name);
-            answer += MoveLeftRightCount(name);
-
-            return answer;
+        {                       
+            InitCharIndex();            
+            return GetKeyMovementCount(name);
         }
-
     }
 }
